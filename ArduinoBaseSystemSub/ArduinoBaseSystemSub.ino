@@ -3,16 +3,16 @@ int Datas[4][6] = {0};
 
 void setup() {
   
-  int inputs[] = {14,15,16,17,18,19};
-  for(int i = 0;i < 6;i++) {
+  int inputs[] = {14,15,16,17,18,19,0};
+  for(int i = 0;i < 7;i++) {
     pinMode(inputs[i],INPUT);
   }
   
 
   int outputs[] = {4,5,6,7,8,9,10,11,12,13};
-  for(int i = 0;i < 10;i++) {
+  for(int i = 0;i < 10;i++) 
     pinMode(outputs[i],OUTPUT);
-  }
+  
 
   Serial.begin(9600);
 }
@@ -22,9 +22,13 @@ void loop() {
 
   
   int *input = (int*)malloc(sizeof(int) * 5);
+  //String tmp = "";
   for(int i = 0;i < 5 ;i++) {
     input[i] = digitalRead(i + 14);
+    //tmp += " " + String(input[i]);
   }
+
+  //Serial.println(tmp);
   
   int result = Decode(input);
   free(input);
@@ -34,7 +38,11 @@ void loop() {
   //Serial.println(String(analogRead(5)));
 
   //Serial.println(String(digitalRead(19)));
-  Datas[result / 6][result % 6] = digitalRead(19);
+  if(digitalRead(0)) {
+    Datas[result / 6][result % 6] = digitalRead(19);
+  }
+
+  Serial.println(String(result));
   
    
   for(int Clock = 0;Clock < 4;Clock++) { //クロック制御
