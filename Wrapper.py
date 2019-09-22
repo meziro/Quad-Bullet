@@ -62,13 +62,13 @@ class Arduino_Controler:
             msg += "pin:" + str(k) + "=" + str(v) + "," 
         print(msg)
 
-    def LED_switch(pin,light) :
+    def LED_switch(self,pin,light) :
         lm = "" if(light == 1) else "#"
         self.message += lm + str(pin) + "," + lm
 
-    def LED_swap(pin) :
-        LED_switch(pin,0 if(LEDdatabase[pin] == 1) else 1)
-        LEDdatabase[pin] = 0 if(LEDdatabase[pin] == 1) else 1
+    def LED_swap(self,epin) :
+        self.LED_switch(pin,0 if(self,LEDdatabase[pin] == 1) else 1)
+        self,LEDdatabase[pin] = 0 if(self,LEDdatabase[pin] == 1) else 1
    
 
 x = Arduino_Controler("COM3")
