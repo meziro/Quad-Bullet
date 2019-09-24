@@ -17,9 +17,15 @@ void setup() {
   Serial.begin(9600);
 }
 
+int count = 0;
+
 void loop() {
   // put your main code here, to run repeatedly:
-
+  count++;
+  if(count % 50 == 0) {
+    Serial.println("DEBUG");
+    count = 0;
+  }
   
   int *input = (int*)malloc(sizeof(int) * 5);
   //String tmp = "";
@@ -38,7 +44,7 @@ void loop() {
   //Serial.println(String(analogRead(5)));
 
   //Serial.println(String(digitalRead(19)));
-  if(digitalRead(0)) {
+  if(digitalRead(2)) {
     Datas[result / 6][result % 6] = digitalRead(19);
   }
 

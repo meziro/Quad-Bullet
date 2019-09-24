@@ -40,7 +40,8 @@ class Arduino_Controler:
             s = self.Serial.readline().decode('utf-8')
 
             if(len(s) != 0) :
-                print(s)
+                #print(s)
+                pass
             result = re.findall("status_update:{([0-9]+),([0-9]+)};",s)
 
             if result:
