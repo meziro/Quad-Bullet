@@ -1,7 +1,7 @@
 int outputs[] = {2,3,4,5,14,15,16,17,18,19};
 int output_num = 10;
-int inputs[] = {6};
-int input_num = 1;
+int inputs[] = {10,11,12,13};
+int input_num = 4;
 int *switch_state_prev;
 
 /*  Output pin details

@@ -12,7 +12,10 @@ class Arduino_Controler:
 
         #各種変数を初期化
         self.swtich = {
-                6:0,
+                10:0,
+                11:0,
+                12:0,
+                13:0,
                 }
         self.LEDdatabase = [0] * 24
 
@@ -30,7 +33,7 @@ class Arduino_Controler:
 
         thread.start()
 
-        self.message = "~0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24*"
+        self.message = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24*"
 
         time.sleep(1)
 
@@ -40,7 +43,7 @@ class Arduino_Controler:
             s = self.Serial.readline().decode('utf-8')
 
             if(len(s) != 0) :
-                #print(s)
+                print(s)
                 pass
             result = re.findall("status_update:{([0-9]+),([0-9]+)};",s)
 
@@ -85,17 +88,19 @@ class Arduino_Controler:
         self.LED_switch(pin,0 if(self,LEDdatabase[pin] == 1) else 1)
         self,LEDdatabase[pin] = 0 if(self,LEDdatabase[pin] == 1) else 1
    
+    def get_state(self,x) :
+        return self.switch[x - 9]
 
 x = Arduino_Controler("COM7")
 
 
-for i in range(24) :
-    x.LED_switch(i,1)
-    time.sleep(1)
+#for i in range(24) :
+#    x.LED_switch(i,1)
+#    time.sleep(1)
 
 
-for i in range(24) :
-    x.LED_switch(i,0)
-    time.sleep(1)
+#for i in range(24) :
+#    x.LED_switch(i,0)
+#    time.sleep(1)
 
 
