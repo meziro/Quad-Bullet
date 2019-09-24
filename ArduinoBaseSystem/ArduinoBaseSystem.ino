@@ -57,7 +57,7 @@ void loop() {
   for(int i = 0;i < input_num;i++) {
     int tmp = digitalRead(inputs[i]);
     if(tmp != switch_state_prev[i]) {
-      message += "status_updata:{" + String(inputs[i]) + "," + String(tmp) + "};";
+      message += "status_update:{" + String(inputs[i]) + "," + String(tmp) + "};";
     }
     switch_state_prev[i] = tmp;
   }

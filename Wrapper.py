@@ -11,7 +11,7 @@ class Arduino_Controler:
         self.Serial = serial.Serial(com_port,115200,timeout=1)
 
         #各種変数を初期化
-        self.swtich = {
+        self.switch = {
                 10:0,
                 11:0,
                 12:0,
@@ -43,11 +43,12 @@ class Arduino_Controler:
             s = self.Serial.readline().decode('utf-8')
 
             if(len(s) != 0) :
-                print(s)
+                #print(s)
                 pass
             result = re.findall("status_update:{([0-9]+),([0-9]+)};",s)
 
             if result:
+                print("test")
                 for x in result:
                     self.switch[int(x[0])] = int(x[1])
             
@@ -61,6 +62,8 @@ class Arduino_Controler:
             self.message = ""
 
             print("sent")
+        
+        self.Serial.close()
 
     def wait_arduino(self) :
         for i in range(10000000000) :
@@ -76,7 +79,7 @@ class Arduino_Controler:
     
     def show_state(self) :
         msg = ""
-        for k,v in self.switch().items():
+        for k,v in self.switch.items():
             msg += "pin:" + str(k) + "=" + str(v) + "," 
         print(msg)
 
@@ -92,6 +95,12 @@ class Arduino_Controler:
         return self.switch[x - 9]
 
 x = Arduino_Controler("COM7")
+
+print("Hello")
+
+for i in range(10):
+    x.show_state()
+    time.sleep(1)
 
 
 #for i in range(24) :
