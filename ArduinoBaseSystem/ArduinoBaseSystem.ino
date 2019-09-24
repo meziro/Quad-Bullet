@@ -142,7 +142,8 @@ void Control(int x) {
   //Serial.println(tmp);
   
   free(ptr);
-  delay(25); //サブがメッセージを理解する猶予
+  delay(12); //サブがメッセージを理解する猶予
+  digitalWrite(2,LOW);
 }
 
 
