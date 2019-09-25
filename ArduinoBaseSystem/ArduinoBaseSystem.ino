@@ -1,7 +1,7 @@
-int outputs[] = {2,3,4,5,14,15,16,17,18,19};
-int output_num = 10;
-int inputs[] = {10,11,12,13};
-int input_num = 4;
+int outputs[] = {2,14,15,16,17,18,19};
+int output_num = 7;
+int inputs[] = {10,11,12,13,3};
+int input_num = 5;
 int *switch_state_prev;
 
 /*  Output pin details
@@ -19,7 +19,7 @@ int *switch_state_prev;
 
 void setup() {
   //serial init
-  Serial.begin(115200);
+  Serial.begin(2000000);
   Serial.setTimeout(1);
 
   Serial.println("[DEBUG]Serial port had beed initialized");
@@ -54,7 +54,7 @@ void loop() {
   //Send data
 
   String message = "";
-  for(int i = 0;i < input_num;i++) {
+  for(int i = 0;i < input_num - 1;i++) {
     int tmp = digitalRead(inputs[i]);
     if(tmp != switch_state_prev[i]) {
       message += "status_update:{" + String(inputs[i]) + "," + String(tmp) + "};";
@@ -129,7 +129,6 @@ void Control(int x) {
     return;
   
   digitalWrite(19,light_state); //指示しているライトの状態を指定
-  digitalWrite(2,HIGH); //Enable
   
   int *ptr = Encode(x); //二進数列に変換
   String tmp = ""; //デバック用メッセージリスト
@@ -142,7 +141,11 @@ void Control(int x) {
   //Serial.println(tmp);
   
   free(ptr);
-  delay(12); //サブがメッセージを理解する猶予
+
+  
+  digitalWrite(2,HIGH); //Enable
+  //delay(12); //サブがメッセージを理解する猶予
+  while(!digitalRead(3)) {} //読み取りきったらしい  
   digitalWrite(2,LOW);
 }
 

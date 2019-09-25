@@ -8,7 +8,7 @@ class Arduino_Controler:
 
     def __init__(self,com_port) :
         #Serial port を初期化
-        self.Serial = serial.Serial(com_port,115200,timeout=1)
+        self.Serial = serial.Serial(com_port,2000000,timeout=0.001)
 
         #各種変数を初期化
         self.switch = {
@@ -33,7 +33,7 @@ class Arduino_Controler:
 
         thread.start()
 
-        self.message = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24*"
+        self.message = "~0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24*"
 
         time.sleep(1)
 
@@ -48,7 +48,6 @@ class Arduino_Controler:
             result = re.findall("status_update:{([0-9]+),([0-9]+)};",s)
 
             if result:
-                print("test")
                 for x in result:
                     self.switch[int(x[0])] = int(x[1])
             
@@ -56,12 +55,10 @@ class Arduino_Controler:
             if(self.message == "") :
                 continue
             
-            print(self.message + "*")
+            #print(self.message + "*")
 
             self.Serial.write((self.message + "*").encode())
             self.message = ""
-
-            print("sent")
         
         self.Serial.close()
 
@@ -72,7 +69,8 @@ class Arduino_Controler:
                 s = self.Serial.readline().decode('utf-8')
             except:
                 continue
-            print(s)
+            if(len(s) != 0):
+                print(s)
             if("Ready" in s) :
                 return
         exit()
@@ -92,15 +90,8 @@ class Arduino_Controler:
         self,LEDdatabase[pin] = 0 if(self,LEDdatabase[pin] == 1) else 1
    
     def get_state(self,x) :
-        return self.switch[x - 9]
+        return self.switch[x + 10]
 
-x = Arduino_Controler("COM7")
-
-print("Hello")
-
-for i in range(10):
-    x.show_state()
-    time.sleep(1)
 
 
 #for i in range(24) :
