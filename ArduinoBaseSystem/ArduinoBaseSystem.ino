@@ -138,7 +138,7 @@ void Control(int x) {
     tmp += " " + String(ptr[i]);
   }
 
-  //Serial.println(tmp);
+  Serial.println(tmp);
   
   free(ptr);
 

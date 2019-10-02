@@ -24,8 +24,12 @@ def main() :
 
 
 def check(num): 
-    if ac.get_state(num) :
-        oks[num] = 1
+    while True :
+        if ac.get_state(num) :
+            oks[num] = 1
+            break
+        else:
+            t.sleep(0.1)
 
 
 

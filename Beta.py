@@ -18,11 +18,14 @@ def light() :
 
 while True :
   for i in range(4):
-    if(ar[i] == 0 and s.get_state(i + 1)):
+    if(ar[i] == 0 and s.get_state(i)):
       ar[i] = 1
       num = i
+      light()
+      continue
       thread = threading.Thread(target = light)
       thread.deamon = True
       thread.start()
+    time.sleep(1)
       
 

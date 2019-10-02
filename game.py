@@ -5,7 +5,7 @@ import Wrapper as w
 import time
 
 
-LED=w.Arduino_Controler("COM4")
+LED=w.Arduino_Controler("COM7")
 
 #if __name__=='__main__':
   #main()
@@ -90,7 +90,7 @@ def Score(hit):
     score+=1
 
 while True: 
-  inputInfo1=LED.get_state(1)
+  inputInfo1=LED.get_state(0)
   if inputInfo1==1:
     Light1(1)
 #for i in range(24):
