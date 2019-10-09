@@ -12,7 +12,7 @@ def light() :
   x = num
   for j in range(6):
     s.LED_switch(x * 6 + j,1)
-    time.sleep(0.5)
+    time.sleep(0.1)
     s.LED_switch(x * 6 + j,0)
   ar[x] = 0
 
@@ -21,11 +21,9 @@ while True :
     if(ar[i] == 0 and s.get_state(i)):
       ar[i] = 1
       num = i
-      light()
-      continue
       thread = threading.Thread(target = light)
       thread.deamon = True
       thread.start()
-    time.sleep(1)
+    time.sleep(0.1)
       
 
