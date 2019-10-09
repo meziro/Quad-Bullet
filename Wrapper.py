@@ -49,7 +49,7 @@ class Arduino_Controler:
 
             if result:
                 for x in result:
-                    self.switch[int(x[0])] = int(x[1])
+                    self.switch[int(x[0])] = 0 if (x[1] == '1') else 1
             
             #Send data
             if(self.message == "") :
