@@ -2,7 +2,7 @@ import Wrapper as w
 import time
 import threading
 
-s = w.Arduino_Controler("COM7")
+s = w.Arduino_Controler("COM4")
 
 num = 0
 
@@ -17,6 +17,7 @@ def light() :
   ar[x] = 0
 
 while True :
+  s.show_state()
   for i in range(4):
     if(ar[i] == 0 and s.get_state(i)):
       ar[i] = 1

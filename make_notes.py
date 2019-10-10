@@ -3,6 +3,7 @@ import pygame
 import time
 import Wrapper as w
 import threading
+import json
 
 s = w.Arduino_Controler("COM4")
 
@@ -10,7 +11,7 @@ s = w.Arduino_Controler("COM4")
 Flag = True
 
 def play_music():
-    music_filename = "hyperspeed.mp3"
+    music_filename = "firefly.mp3"
     pygame.mixer.init()
     pygame.mixer.music.load(music_filename)
     mp3_length = mp3(music_filename).info.length
@@ -24,23 +25,19 @@ thread = threading.Thread(target = play_music)
 thread.deamon = True
 thread.start()
 
-print("test")
-
 notes = []
 while Flag:
-    notes.append(s.switch.copy())
-    time.sleep(0.1)
+    notes.append([i for i in s.switch.values()])
+    time.sleep(0.2)
     s.show_state()
 
-print("test2")
+t = 0
+json_data = []
+for data in notes:
+    json_data.append({t : data})
+    t += 1
 
-def print_state(x) :
-    for i in range(4) :
-        print(str(i + 10) + " : " + str(x[i + 10]),end = " ")
-    print()
+json.dump(json_data,open("SampleFumen.json","w"))
 
-for i in notes:
-    #print_state(i)
-    pass
 
 s.exit_code = False 
