@@ -3,7 +3,7 @@ import time
 import threading
 import re
 
-class Arduino_Controler:
+class Arduino_Controller:
     #TODO: ここにめっちゃわかりやすい説明を書く
 
     def __init__(self,com_port) :

@@ -5,7 +5,7 @@ import Wrapper as w
 import threading
 import json
 
-s = w.Arduino_Controler("COM4")
+s = w.Arduino_Controller("COM7")
 
 
 Flag = True
