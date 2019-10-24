@@ -55,7 +55,7 @@ class Arduino_Controller:
             if(self.message == "") :
                 continue
             
-            print(self.message + "*")
+            #print(self.message + "*")
 
             self.Serial.write((self.message + "*").encode())
             self.message = ""

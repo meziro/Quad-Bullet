@@ -18,23 +18,35 @@ def main() :
 
 	Score = 0
 
-	#first
-
+	Sums = [0,0,0,0]
 	for i in range(len(fumen)) :
-		print(fumen[i],end = " ")
-		s.show_state()
 
 		for j in range(4) :
-			if(fumen[i][str(i)][j] == 1 and s.switch[j + 10] == fumen[i][str(i)][j]) :
-				Score += 1
+			Sums[j] += fumen[i][str(i)][j]
 
+		print(Sums)
+		#s.show_state()
+
+		#Print
+		for offset in range(6) :
+			print_place = i + offset - 1
+			if(print_place <= 0 or len(fumen) <= print_place) :
+				continue
+			for j in range(4) :
+				print_data = fumen[print_place][str(print_place)][j]
+				print_led = (5 - offset) + 6 * j
+				if(print_data == 1) :
+					s.LED_switch(print_led,True)
+				elif(print_data == -1) :
+					s.LED_switch(print_led,False)
+
+		#Score
 		for j in range(4) :
-			if(fumen[i][str(i)][j] == 1) :
-				s.LED_switch(j * 6,True)
-			else :
-				s.LED_switch(j * 6,False)
-
-
+			if(s.switch[j + 10] == 1) :
+				if(Sums[j] == 1) :
+					Score += 2
+				else :
+					Score -= 1
 
 		"""
 		if(len(fumen) - i < 6) :
