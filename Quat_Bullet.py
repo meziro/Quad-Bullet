@@ -18,7 +18,10 @@ def main() :
 
 	Score = 0
 
+	
 	Sums = [0,0,0,0]
+	Pushed = [0,0,0,0]
+
 	for i in range(len(fumen)) :
 
 		for j in range(4) :
@@ -35,16 +38,25 @@ def main() :
 			for j in range(4) :
 				print_data = fumen[print_place][str(print_place)][j]
 				print_led = (5 - offset) + 6 * j
-				if(print_data == 1) :
+				if(print_data == 1 and not Pushed[j] == 1) :
 					s.LED_switch(print_led,True)
-				elif(print_data == -1) :
+				if(print_data == -1)  :
 					s.LED_switch(print_led,False)
 
 		#Score
+		Pushed = [0,0,0,0]
 		for j in range(4) :
 			if(s.switch[j + 10] == 1) :
 				if(Sums[j] == 1) :
+
+					print("OK")
+
 					Score += 2
+					#押したらLED消す処理(手抜きなのでLEDどころか譜面が消し飛ぶが)
+					#fumen[i][j] = 0 #悪魔の力
+					#それはさすがにないわ。修正
+					Pushed[j] = 1
+					
 				else :
 					Score -= 1
 
