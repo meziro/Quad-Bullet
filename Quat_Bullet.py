@@ -85,6 +85,7 @@ def play_music() :
     music_filename = "firefly.mp3"
     pygame.mixer.init()
     pygame.mixer.music.load(music_filename)
+	pygame.mixer.music.set_volume()
     mp3_length = mp3(music_filename).info.length
     pygame.mixer.music.play(1)
     time.sleep(10)
@@ -93,7 +94,7 @@ def play_music() :
     Flag = False
 
 def Voice():
-    voice="start C:\stn019337\softalk\softalk.exe /R: /W:"+"スコアは"+str(Score)+"です"
+    voice="start C:\stn019337\softalk\softalk.exe /R: /W:"+"あなたのスコアは"+str(Score)+"です"
     subprocess.call(voice,shell=True)
 
 def read_json() :
