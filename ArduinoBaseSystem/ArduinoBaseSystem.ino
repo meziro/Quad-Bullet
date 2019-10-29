@@ -38,7 +38,7 @@ void setup() {
 
   //data init
   //char_buf = (char*)malloc(sizeof(char) * 256);
-  switch_state_prev = (int*)calloc(sizeof(int),input_num);
+  switch_state_prev = (int*)calloc(sizeof(int),4);
   //Full with 0(by using calloc)
 
   digitalWrite(19,LOW);
@@ -54,7 +54,7 @@ void loop() {
   //Send data
 
   String message = "";
-  for(int i = 0;i < input_num - 1;i++) {
+  for(int i = 0;i < 4;i++) {    
     int tmp = digitalRead(inputs[i]);
     if(tmp != switch_state_prev[i]) {
       message += "status_update:{" + String(inputs[i]) + "," + String(tmp) + "};";

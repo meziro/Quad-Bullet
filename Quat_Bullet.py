@@ -4,6 +4,7 @@ import time
 import Wrapper as w
 import threading
 import json
+import subprocess
 
 Score = 0;
 def main() :
@@ -85,7 +86,7 @@ def play_music() :
     music_filename = "firefly.mp3"
     pygame.mixer.init()
     pygame.mixer.music.load(music_filename)
-	pygame.mixer.music.set_volume()
+	#pygame.mixer.music.set_volume()
     mp3_length = mp3(music_filename).info.length
     pygame.mixer.music.play(1)
     time.sleep(10)
