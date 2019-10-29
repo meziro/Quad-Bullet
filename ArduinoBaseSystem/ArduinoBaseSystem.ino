@@ -1,7 +1,7 @@
 int outputs[] = {2,14,15,16,17,18,19};
 int output_num = 7;
-int inputs[] = {10,11,12,13,3};
-int input_num = 5;
+int inputs[] = {10,11,12,13,3,6,7};
+int input_num = 7;
 int *switch_state_prev;
 
 /*  Output pin details
@@ -110,7 +110,7 @@ void Tokenize_Control_Message(String mes) {
       int num = mes.substring(last,now).toInt();
       last = now + 1;
 
-      Control(num); //ピンの状態をもとになにかいいことしてくれるはずだと思う。多分。おそらく(予定)。
+      Control(num,0); //ピンの状態をもとになにかいいことしてくれるはずだと思う。多分。おそらく(予定)。
       Serial.println(String(num) + " to " + (light_state ? "HIGH" : "LOW"));
     }
     if(c == '~') {
@@ -124,7 +124,9 @@ void Tokenize_Control_Message(String mes) {
 }
 
 
-void Control(int x) {
+void Control(int x,int depth) {
+  if(depth > 5) return;
+  
   if(!(0 <= x && x <= 23)) //範囲外だったら
     return;
   
@@ -140,15 +142,42 @@ void Control(int x) {
 
   Serial.println(tmp);
   
-  free(ptr);
 
   
   digitalWrite(2,HIGH); //Enable
   //delay(12); //サブがメッセージを理解する猶予
   while(!digitalRead(3)) {} //読み取りきったらしい  
+
+  bool miss = binary_check(ptr,digitalRead(6),digitalRead(7));
+  
+  free(ptr); 
   digitalWrite(2,LOW);
+
+  if(miss) {
+    Serial.println("送信ミスが発生しました。再送します");
+    Control(x,depth + 1);
+  }
 }
 
+
+bool binary_check(int* ptr,int a,int b) {
+  //b not use;
+  int parity_one = 0;
+  int parity_two = 0;
+  for(int i = 0;i < 3;i++)
+    parity_one = oxor(parity_one,ptr[i]);
+  for(int i = 3;i < 5;i++) 
+    parity_two = oxor(parity_two,ptr[i]);
+  parity_two = oxor(parity_two,light_state);
+
+  if(parity_one != a || parity_two != b) return true; //やりなおせ
+  return false;
+}
+
+int oxor(int a,int b) {
+  if(a == b) return 0;
+  else return 1;
+}
 
 
 int* Encode(int x) {
