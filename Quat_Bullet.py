@@ -1,13 +1,13 @@
-from mutagen.mp3 import MP3 as mp3
+﻿from mutagen.mp3 import MP3 as mp3
 import pygame
 import time
 import Wrapper as w
 import threading
 import json
 
-
+Score = 0;
 def main() :
-	s = w.Arduino_Controller("COM7")
+	s = w.Arduino_Controller("COM3")
 
 	fumen = read_json()
 
@@ -16,9 +16,9 @@ def main() :
 	thread.deamon = True
 	thread.start()
 
-	Score = 0
+	#Score = 0
 
-	
+
 	Sums = [0,0,0,0]
 	Pushed = [0,0,0,0]
 
@@ -56,7 +56,7 @@ def main() :
 					#fumen[i][j] = 0 #悪魔の力
 					#それはさすがにないわ。修正
 					Pushed[j] = 1
-					
+
 				else :
 					Score -= 1
 
@@ -72,11 +72,12 @@ def main() :
 				else :
 					s.LED_switch((6 - _n) * 6 + j,False)
 		"""
-		
+
 		time.sleep(0.2)
-	
+
 
 	s.exit_code = False
+	Voice()
 
 	print(Score)
 
@@ -91,6 +92,9 @@ def play_music() :
     global Flag
     Flag = False
 
+def Voice():
+    voice="start C:\stn019337\softalk\softalk.exe /R: /W:"+"スコアは"+str(Score)+"です"
+    subprocess.call(voice,shell=True)
 
 def read_json() :
 	f = open("./SampleFumen.json","r")
@@ -103,4 +107,3 @@ def read_json() :
 
 if(__name__ == "__main__") :
     main()
-
