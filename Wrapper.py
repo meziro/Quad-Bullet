@@ -42,10 +42,11 @@ class Arduino_Controller:
             #Receive data
             s = self.Serial.readline().decode('utf-8')
 
-            if(len(s) != 0) :
-                #print(s)
-                pass
             result = re.findall("status_update:{([0-9]+),([0-9]+)};",s)
+
+            if(len(s) != 0 and not result) :
+                print(s)
+                pass
 
             if result:
                 for x in result:
@@ -54,12 +55,12 @@ class Arduino_Controller:
             #Send data
             if(self.message == "") :
                 continue
-            
+
             #print(self.message + "*")
 
             self.Serial.write((self.message + "*").encode())
             self.message = ""
-        
+
         self.Serial.close()
 
     def wait_arduino(self) :
@@ -74,11 +75,11 @@ class Arduino_Controller:
             if("Ready" in s) :
                 return
         exit()
-    
+
     def show_state(self) :
         msg = ""
         for k,v in self.switch.items():
-            msg += "pin:" + str(k) + "=" + str(v) + "," 
+            msg += "pin:" + str(k) + "=" + str(v) + ","
         print(msg)
 
     def LED_switch(self,pin,light) :
@@ -88,7 +89,7 @@ class Arduino_Controller:
     def LED_swap(self,epin) :
         self.LED_switch(pin,0 if(self,LEDdatabase[pin] == 1) else 1)
         self,LEDdatabase[pin] = 0 if(self,LEDdatabase[pin] == 1) else 1
-   
+
     def get_state(self,x) :
         return self.switch[x + 10]
 
@@ -102,5 +103,3 @@ class Arduino_Controller:
 #for i in range(24) :
 #    x.LED_switch(i,0)
 #    time.sleep(1)
-
-
