@@ -16,8 +16,8 @@ void setup() {
 
   //Serial.begin(9600); //消すぜ
 
-  pinMode(0,OUTPUT);
-  pinMode(1,OUTPUT);
+  //pinMode(0,OUTPUT);
+  //pinMode(1,OUTPUT);
 }
 
 int count = 0;
@@ -53,13 +53,13 @@ void loop() {
     int inst = digitalRead(19);
     //parity = oxor(parity,inst);
 
-
+    /*
     for(int i = 0;i < 3;i++)
       parity_one = oxor(parity_one,input[i]);
     for(int i = 3;i < 5;i++)
       parity_two = oxor(parity_two,input[i]);
     parity_two = oxor(parity_two,inst);
-
+    */
 
     Datas[result / 6][result % 6] = inst;
     //Serial.println(String(result));
@@ -69,8 +69,8 @@ void loop() {
     //digitalWrite(0,parity);
     //Serial.println("parity is " + String(parity_one) + "," + String(parity_two));
     
-    digitalWrite(0,parity_one);
-    digitalWrite(1,parity_two);
+    //digitalWrite(0,parity_one);
+    //digitalWrite(1,parity_two);
 
     digitalWrite(3,HIGH); //終わったよーー
     delay(1);
