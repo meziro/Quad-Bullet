@@ -12,7 +12,7 @@ void setup() {
   for(int i = 0;i < 11;i++)
     pinMode(outputs[i],OUTPUT);
 
-  //digitalWrite(3,LOW);
+  digitalWrite(3,LOW);
 
   //Serial.begin(9600); //消すぜ
 
@@ -46,7 +46,7 @@ void loop() {
     int result = Decode(input);
 
     //digitalWrite(result,HIGH);
-    //Serial.println(String(result));
+    Serial.println(String(result));
     //Serial.println(String(analogRead(5)));
 
     //Serial.println(String(digitalRead(19)));

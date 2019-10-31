@@ -125,7 +125,10 @@ void Tokenize_Control_Message(String mes) {
 
 
 void Control(int x,int depth) {
-  if(depth > 5) return;
+  if(depth > 5) {
+    Serial.println("FailInfo{" + String(x) + "}");
+    return;
+  }
   
   if(!(0 <= x && x <= 23)) //範囲外だったら
     return;
@@ -133,35 +136,36 @@ void Control(int x,int depth) {
   digitalWrite(19,light_state); //指示しているライトの状態を指定
   
   int *ptr = Encode(x); //二進数列に変換
-  String tmp = ""; //デバック用メッセージリスト
+  //String tmp = ""; //デバック用メッセージリスト
   for(int i = 0;i < 5;i++) {
     digitalWrite(i + 14,ptr[i]); //Analog pinにbinaryを出力
     //Serial.println(String(ptr[i]));
-    tmp += " " + String(ptr[i]);
+    //tmp += " " + String(ptr[i]);
   }
 
-  Serial.println(tmp);
+  //Serial.println(tmp);
   
 
   
   digitalWrite(2,HIGH); //Enable
-  //delay(12); //サブがメッセージを理解する猶予
+  delay(1); //サブがメッセージを理解する猶予
   while(!digitalRead(3)) {} //読み取りきったらしい  
 
   int a = digitalRead(6);
   int b = digitalRead(7);
 
-  Serial.println(String(a) + " : " + String(b));
+  //Serial.println(String(a) + " : " + String(b));
   
   bool miss = binary_check(ptr,a,b);
   
   free(ptr); 
   digitalWrite(2,LOW);
 
+  
   if(miss) {
-    Serial.println("送信ミスが発生しました。再送します");
+    Serial.println("ErrorInfo{" + String(x) + "}");
     Control(x,depth + 1);
-  }
+  }  
 }
 
 
