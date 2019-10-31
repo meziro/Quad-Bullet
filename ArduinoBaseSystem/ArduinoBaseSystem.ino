@@ -148,7 +148,12 @@ void Control(int x,int depth) {
   //delay(12); //サブがメッセージを理解する猶予
   while(!digitalRead(3)) {} //読み取りきったらしい  
 
-  bool miss = binary_check(ptr,digitalRead(6),digitalRead(7));
+  int a = digitalRead(6);
+  int b = digitalRead(7);
+
+  Serial.println(String(a) + " : " + String(b));
+  
+  bool miss = binary_check(ptr,a,b);
   
   free(ptr); 
   digitalWrite(2,LOW);
