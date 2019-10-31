@@ -7,7 +7,10 @@ import json
 import subprocess
 
 Score = 0;
+
 def main() :
+	global Score
+
 	s = w.Arduino_Controller("COM3")
 
 	fumen = read_json()
@@ -61,7 +64,7 @@ def main() :
 				else :
 					Score -= 1
 
-		"""
+					"""
 		if(len(fumen) - i < 6) :
 			continue
 
@@ -89,7 +92,7 @@ def play_music() :
 	#pygame.mixer.music.set_volume()
     mp3_length = mp3(music_filename).info.length
     pygame.mixer.music.play(1)
-    time.sleep(10)
+    time.sleep(mp3_length)
     pygame.mixer.music.stop()
     global Flag
     Flag = False
