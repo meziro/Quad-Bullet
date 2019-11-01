@@ -102,7 +102,7 @@ def Voice():
     subprocess.call(voice,shell=True)
 
 def read_json() :
-	f = open("./FireFlySamplebyC#.json","r")
+	f = open("./SampleFumen.json","r")
 	ret = json.load(f)
 	f.close()
 

@@ -1,7 +1,7 @@
 import Wrapper as w
 import time
 
-s = w.Arduino_Controller("COM3")
+s = w.Arduino_Controller("COM7")
 
 for i in range(25) :
     #s.LED_switch(i - 1,False)
