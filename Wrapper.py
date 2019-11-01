@@ -45,12 +45,24 @@ class Arduino_Controller:
             result = re.findall("status_update:{([0-9]+),([0-9]+)};",s)
 
             if(len(s) != 0 and not result) :
-                print(s)
+                #print(s)
                 pass
 
             if result:
                 for x in result:
                     self.switch[int(x[0])] = int(x[1])
+
+            errors = re.findall("ErrorInfo{([0-9]+)}",s)
+            if errors:
+                for x in errors:
+                    print("[WARNING]正常な通信ではありませんでした。pin=" + str(x))
+
+            fails = re.findall("FailInfo{([0-9]+)}",s)
+            if fails :
+                for x in fails:
+                    print("[FAIL]通信に失敗しました。pin=" + str(x))
+
+
 
             #Send data
             if(self.message == "") :

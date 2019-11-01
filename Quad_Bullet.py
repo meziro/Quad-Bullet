@@ -11,7 +11,7 @@ Score = 0;
 def main() :
 	global Score
 
-	s = w.Arduino_Controller("COM7")
+	s = w.Arduino_Controller("COM3")
 
 	fumen = read_json()
 
@@ -19,6 +19,7 @@ def main() :
 	thread = threading.Thread(target = play_music)
 	thread.deamon = True
 	thread.start()
+	time.sleep(0.2)
 
 	#Score = 0
 
@@ -44,7 +45,7 @@ def main() :
 				print_led = (5 - offset) + 6 * j
 				if(print_data == 1 and not Pushed[j] == 1) :
 					s.LED_switch(print_led,True)
-				if(print_data == -1)  :
+				if(print_data == -1 or (offset == 0 and Pushed[j] == 1))  :
 					s.LED_switch(print_led,False)
 
 		#Score
@@ -53,7 +54,7 @@ def main() :
 			if(s.switch[j + 10] == 1) :
 				if(Sums[j] == 1) :
 
-					print("OK")
+					#print("OK")
 
 					Score += 2
 					#押したらLED消す処理(手抜きなのでLEDどころか譜面が消し飛ぶが)
@@ -92,13 +93,13 @@ def play_music() :
 	#pygame.mixer.music.set_volume()
     mp3_length = mp3(music_filename).info.length
     pygame.mixer.music.play(1)
-    time.sleep(mp3_length)
+    time.sleep(mp3_length + 2)
     pygame.mixer.music.stop()
     global Flag
     Flag = False
 
 def Voice():
-    voice="start C:\stn019337\softalk\softalk.exe /R: /W:"+"あなたのスコアは"+str(Score)+"です"
+    voice="start C:\stn019337\softalk\softalk.exe /R: /W:"+"あなたのスコアは"+str(Score)+"点です"
     subprocess.call(voice,shell=True)
 
 def read_json() :
