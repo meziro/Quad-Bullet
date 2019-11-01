@@ -15,6 +15,8 @@ get = '0'
 k = '0'
 t = 0
 
+
+note=[]
 json_data = []
 
 Flag = True
@@ -25,6 +27,7 @@ def non_input():
     m = []
     o = []
     global exit_flag, get, k, t, json_data
+
     while exit_flag:
         if get != '0' and k == '0':
             for i in range(4):
@@ -76,10 +79,12 @@ thread2 = threading.Thread(target = non_input)
 thread2.deamon = True
 thread2.start()
 
+
 while Flag:
     if t == Max:
         break
     k = '0'
+    
     k = chr(ord(getch()))
     time.sleep(0.2)
 
