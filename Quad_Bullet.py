@@ -32,7 +32,7 @@ def main() :
 		for j in range(4) :
 			Sums[j] += fumen[i][str(i)][j]
 
-		print(Sums)
+		print(str(Sums) + " : " + str(Score))
 		#s.show_state()
 
 		#Print
@@ -87,23 +87,32 @@ def main() :
 	print(Score)
 
 def play_music() :
-    music_filename = "firefly.mp3"
-    pygame.mixer.init()
-    pygame.mixer.music.load(music_filename)
+	#music_filename = "firefly.mp3"
+	music_filename = "zinnzya.mp3"
+	pygame.mixer.init()
+	pygame.mixer.music.load(music_filename)
 	#pygame.mixer.music.set_volume()
-    mp3_length = mp3(music_filename).info.length
-    pygame.mixer.music.play(1)
-    time.sleep(mp3_length + 2)
-    pygame.mixer.music.stop()
-    global Flag
-    Flag = False
+	mp3_length = mp3(music_filename).info.length
+	pygame.mixer.music.play(1)
+	time.sleep(mp3_length + 2)
+	pygame.mixer.music.stop()
+	global Flag
+	Flag = False
 
 def Voice():
     voice="start C:\stn019337\softalk\softalk.exe /R: /W:"+"あなたのスコアは"+str(Score)+"点です"
     subprocess.call(voice,shell=True)
 
 def read_json() :
-	f = open("./FireFlySamplebyC#.json","r")
+	#ハードモード
+	#f = open("./new_fumen.json","r")
+	#インセインモード
+	#f = open("./insane.json","r")
+	#ノーマルモード
+	#f = open("./FireFlySamplebyC#.json","r")
+	#神社
+	f = open("./zinnzya_fumen.json")
+	#f = open("./FujiwaraNotes.json","r")
 	ret = json.load(f)
 	f.close()
 
